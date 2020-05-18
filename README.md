@@ -2,8 +2,7 @@
 Reversi is Reversi.
 
 ## What I can
-### 1. To let you play
-### 2. To play
+### 1. To play with you
 <p align="center">
   <img src="demo.gif">
 </p>
