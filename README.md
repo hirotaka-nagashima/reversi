@@ -1,0 +1,2 @@
+# reversi
+Reversi is Reversi.
