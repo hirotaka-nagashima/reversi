@@ -1,5 +1,5 @@
 //-----------------------------------------------------------------------------
-// Copyright (c) 2015 @hirodotexe. All rights reserved.
+// Copyright (c) 2015 Hirotaka Nagashima. All rights reserved.
 //-----------------------------------------------------------------------------
 
 #include "graphic.h"
@@ -8,17 +8,17 @@ void Graphic::Initialize() {
   window_->Initialize();
 
   // Load images.
-  image_board_ = IMG_Load("resources/board.png");
-  image_piece_ = IMG_Load("resources/piece.png");
-  image_overlay_ = IMG_Load("resources/overlay.png");
+  image_board_ = IMG_Load("src/resources/board.png");
+  image_piece_ = IMG_Load("src/resources/piece.png");
+  image_overlay_ = IMG_Load("src/resources/overlay.png");
   if (!image_board_ || !image_piece_ || !image_overlay_) {
     fprintf(stderr, "ERROR: %s\n", IMG_GetError());
     exit(-1);
   }
   
   // Load fonts.
-  font_ = TTF_OpenFont("resources/font.ttf", 50);
-  small_font_ = TTF_OpenFont("resources/font.ttf", 25);
+  font_ = TTF_OpenFont("src/resources/font.ttf", 50);
+  small_font_ = TTF_OpenFont("src/resources/font.ttf", 25);
   if (!font_ || !small_font_) {
     fprintf(stderr, "ERROR: %s\n", TTF_GetError());
     exit(-1);
@@ -34,9 +34,9 @@ Board::Color Graphic::InputHumanTurn() {
 
   while (true) {
     window_->Sleep(100);
-    Uint8 *key = SDL_GetKeyState(NULL);
-    if (key[SDLK_1]) return Board::kBlack;
-    if (key[SDLK_2]) return Board::kWhite;
+    const Uint8 *key = SDL_GetKeyboardState(NULL);
+    if (key[SDL_GetScancodeFromKey(SDLK_1)]) return Board::kBlack;
+    if (key[SDL_GetScancodeFromKey(SDLK_2)]) return Board::kWhite;
   }
 }
 
@@ -56,7 +56,7 @@ void Graphic::DisplayResult(const Board &board, Board::Color player_turn) {
   int num_blacks = board.CountPieces(Board::kBlack);
   int num_whites = board.CountPieces(Board::kWhite);
   char temp[50];
-  sprintf_s(temp, "%2d - %2d", num_blacks, num_whites);
+  snprintf(temp, sizeof(temp), "%2d - %2d", num_blacks, num_whites);
   window_->DrawString(temp, 140, 130, font_);
 
   // Display a comment.
@@ -77,7 +77,7 @@ void Graphic::DisplayResult(const Board &board, Board::Color player_turn) {
 
 void Graphic::DisplayBoard(const Board &board, Board::Color turn,
                            Board::Color player_turn) {
-  char *turn_name[2] = {"CPU", "Your"};
+  const char *turn_name[2] = {"CPU", "Your"};
   window_->DrawGraph(image_board_, 0, 0);
   window_->DrawGraph(image_piece_, 400, 0, turn, 50, 50);
   window_->DrawString(turn_name[(turn == player_turn)], 145, -5, font_);

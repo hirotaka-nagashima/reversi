@@ -1,5 +1,5 @@
 //-----------------------------------------------------------------------------
-// Copyright (c) 2015 @hirodotexe. All rights reserved.
+// Copyright (c) 2015 Hirotaka Nagashima. All rights reserved.
 //-----------------------------------------------------------------------------
 
 #include "window.h"
@@ -16,16 +16,22 @@ void Window::Initialize() {
     std::cerr << "ERROR: " << TTF_GetError() << std::endl;
     exit(-1);
   }
-  if (SDL_SetVideoMode(width_, height_, 16, SDL_HWSURFACE) == NULL) {
+  window_ = SDL_CreateWindow(title_.c_str(),
+                             SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
+                             width_, height_, 0);
+  if (!window_) {
     std::cerr << "ERROR: " << SDL_GetError() << std::endl;
     exit(-1);
   }
-  SDL_WM_SetCaption(title_.c_str(), title_.c_str());
-  video_surface_ = SDL_GetVideoSurface();
+  video_surface_ = SDL_GetWindowSurface(window_);
+  if (!video_surface_) {
+    std::cerr << "ERROR: " << SDL_GetError() << std::endl;
+    exit(-1);
+  }
 }
 
 void Window::Terminate() {
-  SDL_FreeSurface(video_surface_);
+  SDL_DestroyWindow(window_);
   TTF_Quit();
   SDL_Quit();
 }
@@ -64,7 +70,7 @@ void Window::DrawString(const char *text,
 }
 
 void Window::Display() {
-  SDL_Flip(video_surface_);
+  SDL_UpdateWindowSurface(window_);
 }
 
 void Window::Sleep(int duration) const {

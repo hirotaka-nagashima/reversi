@@ -1,5 +1,5 @@
 //-----------------------------------------------------------------------------
-// Copyright (c) 2015 @hirodotexe. All rights reserved.
+// Copyright (c) 2015 Hirotaka Nagashima. All rights reserved.
 //-----------------------------------------------------------------------------
 
 #ifndef REVERSI_WINDOW_H_
@@ -20,7 +20,9 @@ class Window {
   Window(int width, int height, std::string title)
       : width_(width),
         height_(height),
-        title_(title) {}
+        title_(title),
+        window_(nullptr),
+        video_surface_(nullptr) {}
 
   void Initialize();
   void Terminate();
@@ -44,6 +46,7 @@ class Window {
   const int width_;
   const int height_;
   const std::string title_;
+  SDL_Window *window_;
   SDL_Surface *video_surface_;
 };
 

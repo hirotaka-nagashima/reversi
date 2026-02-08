@@ -1,5 +1,5 @@
 //-----------------------------------------------------------------------------
-// Copyright (c) 2015 @hirodotexe. All rights reserved.
+// Copyright (c) 2015 Hirotaka Nagashima. All rights reserved.
 //-----------------------------------------------------------------------------
 
 #ifndef REVERSI_GAME_H_

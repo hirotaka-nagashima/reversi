@@ -1,5 +1,5 @@
 //-----------------------------------------------------------------------------
-// Copyright (c) 2015 @hirodotexe. All rights reserved.
+// Copyright (c) 2015 Hirotaka Nagashima. All rights reserved.
 //-----------------------------------------------------------------------------
 // 2016/11/06: Reconstructed with C++.
 // 2015/04/20: Strengthened the AI.
